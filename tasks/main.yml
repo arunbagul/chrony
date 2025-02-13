@@ -13,7 +13,7 @@
     state: present
     refresh: yes
   when: ansible_facts['os_family'] == 'Suse'
-  notify: start chrony
+  notify: Start chronyd on SUSE
 
 - name: Remove chrony-pool-suse on SUSE
   zypper:
@@ -33,7 +33,7 @@
     name: chrony
     state: present
   when: ansible_facts['os_family'] == 'RedHat'
-  notify: start chrony
+  notify: Start chrony on Debian/Ubuntu and RedHat/CentOS
 
 - name: Deploy chrony.conf template
   template:
