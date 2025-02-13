@@ -1,0 +1,44 @@
+---
+- name: Install chrony on Debian/Ubuntu
+  apt:
+    name: chrony
+    state: present
+    update_cache: true
+  when: ansible_facts['os_family'] == 'Debian'
+  notify: start chrony
+
+- name: Install chrony on SUSE
+  zypper:
+    name: chrony
+    state: present
+    refresh: yes
+  when: ansible_facts['os_family'] == 'Suse'
+  notify: start chrony
+
+- name: Remove chrony-pool-suse on SUSE
+  zypper:
+    name: chrony-pool-suse
+    state: absent
+  when: ansible_facts['os_family'] == 'Suse'
+
+- name: Install chrony-pool-empty on SUSE
+  zypper:
+    name: chrony-pool-empty
+    state: present
+    refresh: yes
+  when: ansible_facts['os_family'] == 'Suse'
+
+- name: Install chrony on RedHat/CentOS
+  yum:
+    name: chrony
+    state: present
+  when: ansible_facts['os_family'] == 'RedHat'
+  notify: start chrony
+
+- name: Deploy chrony.conf template
+  template:
+    src: chrony.conf.j2
+    dest: /etc/chrony.conf
+  notify:
+    - Start chrony on Debian/Ubuntu and RedHat/CentOS
+    - Start chronyd on SUSE
