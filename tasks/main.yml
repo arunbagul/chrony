@@ -5,7 +5,7 @@
     state: present
     update_cache: true
   when: ansible_facts['os_family'] == 'Debian'
-  notify: start chrony
+  notify: Start chrony on Debian/Ubuntu and RedHat/CentOS
 
 - name: Install chrony on SUSE
   zypper:
