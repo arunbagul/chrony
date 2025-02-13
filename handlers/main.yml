@@ -1,0 +1,15 @@
+---
+- name: Start chrony on Debian/Ubuntu and RedHat/CentOS
+  service:
+    name: chrony
+    state: started
+    enabled: true
+  when: ansible_facts['os_family'] in ['Debian', 'RedHat']
+
+- name: Start chronyd on SUSE
+  service:
+    name: chronyd
+    state: started
+    enabled: true
+  when: ansible_facts['os_family'] == 'Suse'
+
