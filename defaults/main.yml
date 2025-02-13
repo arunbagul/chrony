@@ -1,0 +1,5 @@
+---
+# defaults file for arunbagul.chrony
+ntp_server_pools:
+  - name: 0.pool.ntp.org
+  - name: 1.pool.ntp.org
