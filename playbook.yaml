@@ -1,0 +1,12 @@
+---
+- name: Install chrony on all supported systems
+  hosts: localhost
+  become: true
+  roles:
+    - arunbagul.chrony
+  vars:
+     ntp_server_pools:
+       - name: 0.pool.ntp.org
+       - name: 1.pool.ntp.org
+       - name: 2.pool.ntp.org
+       - name: 3.pool.ntp.org
